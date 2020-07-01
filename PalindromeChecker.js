@@ -25,7 +25,7 @@ function palindrome(str) {
     }
     // if the first and last characters are not the same return false
     // then move to the second and second last etc.
-    // i only needs to go up to half the array 
+    // i only needs to go up to half the array
     for (let i = 0; i < str.length/2; i++){
         if (str[i] != str[str.length-i-1]){
             return false;

@@ -18,13 +18,18 @@ Could have used str.replace(/[A-Z]/g, function(decode letter))
 function decodeWord(str) {
     let newWord = [];
     for (let i = 0; i < str.length; i++){
+        // check only letters A - Z aka ASCII of 65 - 90
         if (str.charCodeAt(i) >= 65 && str.charCodeAt(i) <= 90) {
+            // if it ends up going past Z (90) then loop back around
             if (str.charCodeAt(i) + 13 > 90) {
                 newWord[i] = String.fromCharCode(64 + (13 - (90 - str.charCodeAt(i))));
-            } else {
+            }
+            // else just add 13 and add that new letter
+            else {
                 newWord[i] = String.fromCharCode(str.charCodeAt(i) + 13);
             }
         }
+        // if it isn't a letter A-Z then just return that same letter or punctuation etc.
         else {
             newWord[i] = str[i];
         }
@@ -34,6 +39,7 @@ function decodeWord(str) {
 
 function rot13(str) {
     let strArr = str.split(" ");
+    // decode each word and join them back up with spaces between them
     return strArr.map(function (word) {
         return decodeWord(word);
     }).join(" ");

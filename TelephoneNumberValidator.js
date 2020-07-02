@@ -34,20 +34,20 @@ function telephoneCheck(str) {
             return false;
         }
         // if it's a digit increase digit counter
-        if (/\d/.test(str[i])){
+        else if (/\d/.test(str[i])){
             digitCounter++;
             // if it's the first digit then note down what it is
             if (digitCounter == 1){
                 firstDigit = parseInt(str[i], 10);
             }
         }
-        if (/\(/.test(str[i])){
+        else if (/\(/.test(str[i])){
             // if the bracket is appearing after 4 digits have already been accounted for then fail the test
             if (digitCounter > 4){
                 return false;
             }
             // raise flag since we're now looking for the closing bracket
-            if (bracketCounter == 0) {
+            else if (bracketCounter == 0) {
                 bracketCounter++;
             }
             // if the flag has already been raised and another open bracket comes up fail the test
@@ -55,13 +55,13 @@ function telephoneCheck(str) {
                 return false;
             }
         }
-        if (/\)/.test(str[i])){
+        else if (/\)/.test(str[i])){
             // if the bracket is appearing after 4 digits have already been accounted for then fail the test
             if (digitCounter > 4){
                 return false;
             }
             // if the flag was raised it means we were looking for a closing bracket, now we can set it back to 0
-            if (bracketCounter == 1) {
+            else if (bracketCounter == 1) {
                 bracketCounter--;
             }
             // if the flag wasn't raised and we weren't looking for a closing bracket but got one then fail
@@ -75,17 +75,24 @@ function telephoneCheck(str) {
         return false;
     }
     // if we have 11 digits, we need to check the area code
-    if (digitCounter == 11){
+    else if (digitCounter == 11){
         if (firstDigit != 1){
             return false;
         }
     }
     // if there is an opening bracket that was never closed fail
-    if (bracketCounter != 0){
+    else if (bracketCounter != 0){
         return false;
     }
     return true;
 }
+/*
+FCC solution 1
+function telephoneCheck(str) {
+  var regex = /^(1\s?)?(\(\d{3}\)|\d{3})[\s\-]?\d{3}[\s\-]?\d{4}$/;
+  return regex.test(str);
+}
+ */
 
 function test() {
     let testArrs = ["555-555-5555", "555 123 21a2", "1 555-555-5555", "1 (555) 555-5555", "5555555555", "555-555-5555", "(555)555-5555"];
